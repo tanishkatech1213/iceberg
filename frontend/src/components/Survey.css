@@ -1,0 +1,62 @@
+.table-container {
+  padding: 2rem;
+  background: linear-gradient(to bottom right, #ffe4f1, #e0f7fa);
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 182, 193, 0.3);
+}
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  background-color: #fffafc;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.student-table th,
+.student-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #f0cde0;
+}
+
+.student-table th {
+  background-color: #ffe0f0;
+  color: #d63384;
+}
+
+.delete-btn {
+  background-color: #ff6b81;
+  color: white;
+  border: none;
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.delete-all {
+  background-color: #ffb3c6;
+  color: white;
+  border: none;
+  padding: 0.6rem 1rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.undo-container {
+  margin-top: 1rem;
+  background-color: #fff0f5;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.undo-btn {
+  background-color: #a3d2ca;
+  color: #333;
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  cursor: pointer;
+}

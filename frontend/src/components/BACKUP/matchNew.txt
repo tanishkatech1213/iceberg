@@ -1,0 +1,153 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import {
+  Users, Sparkles, Heart, Target,
+  Zap, Star, Rainbow
+} from 'lucide-react';
+
+const MatchingPage = ({ studentData, onMatch }) => {
+  const navigate = useNavigate();
+  const [matchingStage, setMatchingStage] = useState('analyzing');
+  const [progress, setProgress] = useState(0);
+
+  useEffect(() => {
+    const stages = [
+      { name: 'analyzing', duration: 1000, progress: 25 },
+      { name: 'searching', duration: 1000, progress: 50 },
+      { name: 'evaluating', duration: 1000, progress: 75 },
+      { name: 'matching', duration: 1000, progress: 100 }
+    ];
+
+    let index = 0;
+    const interval = setInterval(() => {
+      if (index < stages.length) {
+        setMatchingStage(stages[index].name);
+        setProgress(stages[index].progress);
+        index++;
+      } else {
+        clearInterval(interval);
+        fetchAndMatch();
+      }
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const fetchAndMatch = async () => {
+    try {
+      const res = await fetch('http://localhost:5000/api/students');
+      const allStudents = await res.json();
+
+      const match = findBestMatch(studentData, allStudents);
+      onMatch(match);
+      navigate('/results');
+    } catch (err) {
+      console.error('Matchmaking failed:', err);
+      alert('Unable to connect to matchmaking service.');
+    }
+  };
+
+  const findBestMatch = (current, candidates) => {
+    const filtered = candidates.filter(s => s.name !== current.name);
+    let bestMatch = null;
+    let bestScore = -1;
+
+    filtered.forEach(candidate => {
+      let score = 0;
+
+      if (candidate.major === current.major) score += 3;
+      if (candidate.personality === current.personality) score += 2;
+      if (candidate.year === current.year) score += 1;
+
+      const currentSkills = current.skills?.toLowerCase().split(',').map(s => s.trim());
+      const candidateSkills = candidate.skills?.toLowerCase().split(',').map(s => s.trim());
+
+      if (currentSkills && candidateSkills) {
+        const shared = currentSkills.filter(skill => candidateSkills.includes(skill));
+        score += shared.length;
+      }
+
+      if (score > bestScore) {
+        bestScore = score;
+        bestMatch = candidate;
+      }
+    });
+
+    if (!bestMatch) {
+      bestMatch = {
+        ...current,
+        name: 'You (for now)',
+        avatar: '🪞',
+        funFact: 'You’re your own best buddy until others arrive!'
+      };
+      bestScore = 0;
+    }
+
+    return {
+      student1: current,
+      student2: bestMatch,
+      matchScore: bestScore,
+      pairCode: generatePairCode(),
+      matchReason: generateMatchReason(current, bestMatch)
+    };
+  };
+
+  const generatePairCode = () => {
+    const words = ['Dragon', 'Phoenix', 'Unicorn', 'Griffin', 'Pegasus'];
+    const numbers = Math.floor(Math.random() * 1000).toString().padStart(3, '0');
+    return `${words[Math.floor(Math.random() * words.length)]}${numbers}`;
+  };
+
+  const generateMatchReason = (s1, s2) => {
+    if (s2.name === 'You (for now)') {
+      return `You're the first to join! Once others arrive, we'll find your perfect buddy. For now, you're matched with yourself — and that's a great start. 💫`;
+    }
+    return `You both love ${s1.major}, share a ${s1.personality} vibe, and have overlapping skills like ${s1.skills.split(',')[0]}!`;
+  };
+
+  return (
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-pastel-purple to-pastel-pink text-cute-700 p-6 text-center">
+      <div className="mb-8">
+        <motion.div
+          initial={{ scale: 0.8 }}
+          animate={{ scale: 1 }}
+          transition={{ duration: 0.6, ease: 'easeOut' }}
+          className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-pastel-pink to-pastel-purple rounded-full shadow-lg border-4 border-white animate-bounce-slow glow-pink"
+        >
+          <Sparkles className="w-10 h-10 text-white animate-pulse" />
+        </motion.div>
+        <h1 className="text-4xl font-bold mt-4 rainbow-text drop-shadow-lg">
+          Finding Your Buddy Match 💞
+        </h1>
+        <p className="text-lg mt-2 text-cute-600 animate-pulse-gentle">
+          Stage: <strong>{matchingStage}</strong>
+        </p>
+      </div>
+
+      <div className="w-full max-w-md bg-white rounded-full h-6 shadow-inner overflow-hidden mb-6 border border-pink-200">
+        <motion.div
+          className="h-full bg-gradient-to-r from-pastel-pink to-pastel-purple"
+          initial={{ width: 0 }}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.8 }}
+        />
+      </div>
+
+      <div className="flex justify-center gap-6 text-cute-500 text-3xl mt-4 animate-scale-breathe">
+        <Users />
+        <Target />
+        <Zap />
+        <Heart />
+        <Star />
+        <Rainbow />
+      </div>
+
+      <p className="mt-6 text-cute-700 text-sm italic">
+        Matching based on shared major, personality, year, and skills...
+      </p>
+    </div>
+  );
+};
+
+export default MatchingPage;

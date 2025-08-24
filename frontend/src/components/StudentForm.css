@@ -1,0 +1,213 @@
+/* 🌈 Layout & Container */
+.min-h-screen {
+  min-height: 100vh;
+  background: linear-gradient(to bottom right, #fff0f5, #f0f8ff);
+}
+.p-6 {
+  padding: 1.5rem;
+}
+.relative {
+  position: relative;
+}
+.overflow-hidden {
+  overflow: hidden;
+}
+.z-10 {
+  z-index: 10;
+}
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+.max-w-2xl {
+  max-width: 42rem;
+}
+
+/* ✨ Floating Emojis */
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-15px); }
+  100% { transform: translateY(0); }
+}
+
+/* 💫 Floating Particles */
+.particle {
+  position: absolute;
+  width: 12px;
+  height: 12px;
+  background-color: rgba(255, 182, 193, 0.5);
+  border-radius: 50%;
+  animation: pulse 4s infinite ease-in-out;
+}
+@keyframes pulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.4); opacity: 1; }
+}
+
+/* 📦 Card Styling */
+.card-cute {
+  background: white;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+.glow-pink {
+  box-shadow: 0 0 16px rgba(255, 182, 193, 0.6);
+}
+.glow-blue {
+  box-shadow: 0 0 16px rgba(173, 216, 230, 0.6);
+}
+.glow-purple {
+  box-shadow: 0 0 16px rgba(216, 191, 216, 0.6);
+}
+
+/* 🎀 Buttons */
+.btn-cute {
+  background: linear-gradient(to right, #ffb6c1, #dda0dd);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.btn-cute:hover {
+  background: linear-gradient(to right, #ff69b4, #ba55d3);
+  transform: scale(1.05);
+}
+.btn-secondary-cute {
+  background: white;
+  border: 2px solid #ffb6c1;
+  color: #ff69b4;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+.btn-secondary-cute:hover {
+  background: #fff0f5;
+}
+
+/* 📝 Inputs & Textareas */
+.input-field-cute {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 0.75rem;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+.input-field-cute:focus {
+  border-color: #ffb6c1;
+  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.3);
+  outline: none;
+}
+
+/* 🎨 Typography & Colors */
+.text-cute-600 {
+  color: #d946ef;
+}
+.text-cute-700 {
+  color: #a21caf;
+}
+.text-cute-500 {
+  color: #ec4899;
+}
+.rainbow-text {
+  background: linear-gradient(to right, #ffb6c1, #dda0dd, #b0e0e6);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+/* 🎭 Animations */
+.animate-bounce-soft {
+  animation: bounceSoft 2s infinite;
+}
+@keyframes bounceSoft {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+.animate-pulse-gentle {
+  animation: pulseGentle 3s infinite;
+}
+@keyframes pulseGentle {
+  0%, 100% { opacity: 0.8; }
+  50% { opacity: 1; }
+}
+.animate-scale-breathe {
+  animation: scaleBreathe 4s infinite;
+}
+@keyframes scaleBreathe {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.02); }
+}
+.animate-sparkle {
+  animation: sparkle 1.5s infinite ease-in-out;
+}
+@keyframes sparkle {
+  0%, 100% { transform: rotate(0deg); }
+  50% { transform: rotate(20deg); }
+}
+
+/* 📱 Responsive Grid */
+.grid {
+  display: grid;
+}
+.grid-cols-1 {
+  grid-template-columns: 1fr;
+}
+.md\:grid-cols-2 {
+  grid-template-columns: repeat(2, 1fr);
+}
+.gap-6 {
+  gap: 1.5rem;
+}
+
+/* 📐 Utility Spacing */
+.space-y-6 > * + * {
+  margin-top: 1.5rem;
+}
+.gap-6 {
+  gap: 1.5rem;
+}
+.mb-3 { margin-bottom: 0.75rem; }
+.mb-4 { margin-bottom: 1rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mt-2 { margin-top: 0.5rem; }
+
+/* 🔧 Flex Utilities */
+.flex { display: flex; }
+.flex-col { flex-direction: column; }
+.sm\:flex-row { flex-direction: row; }
+.items-center { align-items: center; }
+.justify-center { justify-content: center; }
+.space-x-3 > * + * { margin-left: 0.75rem; }
+
+/* 🎯 Rounded Corners */
+.rounded-full { border-radius: 9999px; }
+.rounded-lg { border-radius: 0.5rem; }
+.rounded-xl { border-radius: 0.75rem; }
+.rounded-2xl { border-radius: 1rem; }
+
+/* 🌟 Shadows */
+.shadow-lg { box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); }
+.drop-shadow-lg { filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.1)); }
+
+/* 🧠 Accessibility Focus */
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: #ff69b4;
+  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.4);
+}
+button:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(255, 182, 193, 0.4);
+}
