@@ -11,7 +11,7 @@ const StudentTable = () => {
 
   const fetchStudents = async () => {
     try {
-      const res = await fetch('http://localhost:5000/api/students');
+      const res = await fetch('https://iceberg-zzcp.onrender.com/api/students');
       const data = await res.json();
       setStudents(data);
     } catch (err) {
@@ -28,7 +28,7 @@ const StudentTable = () => {
   const deleteStudent = async (id) => {
     const entry = students.find((s) => s._id === id);
     try {
-      await fetch(`http://localhost:5000/api/students/${id}`, { method: 'DELETE' });
+      await fetch(`https://iceberg-zzcp.onrender.com/api/students/${id}`, { method: 'DELETE' });
       setLastDeleted(entry);
       setShowUndo(true);
       setLastDeletedAll([]);
@@ -42,7 +42,7 @@ const StudentTable = () => {
   const deleteAllStudents = async () => {
     try {
       setLastDeletedAll(students);
-      await fetch('http://localhost:5000/api/students', { method: 'DELETE' });
+      await fetch('https://iceberg-zzcp.onrender.com/api/students', { method: 'DELETE' });
       setLastDeleted(null);
       setShowUndo(false);
       setShowUndoAll(true);
@@ -55,7 +55,7 @@ const StudentTable = () => {
   const undoDelete = async () => {
     if (!lastDeleted) return;
     try {
-      await fetch('http://localhost:5000/api/students', {
+      await fetch('https://iceberg-zzcp.onrender.com/api/students', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(lastDeleted),
@@ -72,7 +72,7 @@ const StudentTable = () => {
     try {
       await Promise.all(
         lastDeletedAll.map(entry =>
-          fetch('http://localhost:5000/api/students', {
+          fetch('https://iceberg-zzcp.onrender.com/api/students', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(entry),
@@ -144,3 +144,4 @@ const StudentTable = () => {
 };
 
 export default StudentTable;
+
